@@ -110,7 +110,7 @@ async function getLatestVersion() {
 
 async function getTarballName() {
   const version = await getVersion();
-
+  console.log('getTarballName version', version)
   let arch = {
     arm:      'arm',
     arm64:    'aarch64',
@@ -125,7 +125,7 @@ async function getTarballName() {
     ia32:     'x86',
     x64:      'x86_64',
   }[os.arch()];
-
+console.log('getTarballName arch', os.arch())
   // For some incomprehensible reason, Node.js's brain-damaged build system explicitly throws away
   // the knowledge that it is building for ppc64le, so os.arch() will identify it as ppc64 even on
   // little endian.

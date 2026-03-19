@@ -117,7 +117,7 @@ async function retrieveTarball(tarball_name, tarball_ext) {
 
   core.info(`Cache miss. Fetching Zig ${await common.getVersion()}`);
   const downloaded_path = await downloadTarball(tarball_basename);
-  await fs.copyFile(downloaded_path, tarball_cache_path)
+  // await fs.copyFile(downloaded_path, tarball_cache_path)
   // await cache.saveCache([tarball_cache_path], cache_key);
   return downloaded_path;
 }
