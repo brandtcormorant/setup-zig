@@ -19,8 +19,10 @@ const CANONICAL_RELEASE = 'https://ziglang.org/download';
 const MIRRORS_URL = 'https://ziglang.org/download/community-mirrors.txt';
 
 async function downloadFromMirror(mirror, tarball_filename) {
+  console.log('mirror', mirror)
+  console.log('tarball_filename', tarball_filename)
   const tarball_path = await tc.downloadTool(`${mirror}/${tarball_filename}?source=github-mlugg-setup-zig`);
-
+  console.log('tarball_path', tarball_path)
   const signature_response = await fetch(`${mirror}/${tarball_filename}.minisig?source=github-mlugg-setup-zig`);
   const signature_data = Buffer.from(await signature_response.arrayBuffer());
 
@@ -43,10 +45,12 @@ async function downloadFromMirror(mirror, tarball_filename) {
 }
 
 async function downloadTarball(tarball_filename) {
+  console.log('downloadTarball(tarball_filename)', tarball_filename)
   const preferred_mirror = core.getInput('mirror');
   if (preferred_mirror.includes("://ziglang.org/") || preferred_mirror.startsWith("ziglang.org/")) {
     throw new Error("'https://ziglang.org' cannot be used as mirror override; for more information see README.md");
   }
+
   if (preferred_mirror) {
     core.info(`Using mirror: ${preferred_mirror}`);
     return await downloadFromMirror(preferred_mirror, tarball_filename);
